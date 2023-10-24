@@ -1,7 +1,7 @@
 import Layout from './Layout'
 import Message from './Message'
 //import { useAppContext } from '../AppContext'
-import { useState } from 'react'
+//import { useState } from 'react'
 
 const Home = () => {
 
@@ -13,7 +13,7 @@ const Home = () => {
         return null
     }
 
-    type Message = {
+/*     type Message = {
         content: string;
         sender: string;
         timestamp: number;
@@ -23,7 +23,7 @@ const Home = () => {
     type Conversation = {
         topic: string;
         messages: Message[];
-    }
+    } */
 
     //const [conversation, setConversations] = useState<Conversation>({topic: "topic", messages: []});
 

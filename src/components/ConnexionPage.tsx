@@ -21,7 +21,7 @@ const ConnexionPage = () => {
         }
     }
 
-    const initiateWebsocket = () => {
+/*     const initiateWebsocket = () => {
         // Créer une connexion WebSocket
         const socket = new WebSocket("ws://127.0.0.1:18124");
         // La connexion est ouverte
@@ -38,7 +38,7 @@ const ConnexionPage = () => {
               "Coucou from"+window.localStorage.getItem("login"),
             );
           };
-    }
+    } */
 
 
 
@@ -62,7 +62,7 @@ const ConnexionPage = () => {
         }
         window.localStorage.setItem("login", inputUsernameRef.current.value); // To save the login in the local storage
         window.localStorage.setItem("isConnected", "true");
-        initiateWebsocket();
+        //initiateWebsocket();
         navigate("/frontend/home") //this line is to change the page
         //window.localStorage.setItem("tokenJWT", "token")
     }
