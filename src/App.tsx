@@ -9,8 +9,8 @@ function App() {
         <BrowserRouter>
         <AppProvider>
           <Routes>
-            <Route path="/frontend" element={<ConnexionPage />} />
-            <Route path="/frontend/home" element={<Home />} />
+            <Route path="/website" element={<ConnexionPage />} />
+            <Route path="/website/home" element={<Home />} />
           </Routes>
         </AppProvider>
       </BrowserRouter>

@@ -1,4 +1,4 @@
-# Frontend for the gatherhub project
+# website for the gatherhub project
 
 This project is made with React + TypeScript + Vite + TailwindCSS.
 

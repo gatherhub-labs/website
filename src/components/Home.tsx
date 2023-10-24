@@ -9,7 +9,7 @@ const Home = () => {
     //window.localStorage.getItem("isConnected") === "true" ? setIsConnected(true) : setIsConnected(false)
 
     if(window.localStorage.getItem("isConnected") !== "true"){
-        window.location.href = "/frontend/"
+        window.location.href = "/website/"
         return null
     }
 

@@ -63,7 +63,7 @@ const ConnexionPage = () => {
         window.localStorage.setItem("login", inputUsernameRef.current.value); // To save the login in the local storage
         window.localStorage.setItem("isConnected", "true");
         //initiateWebsocket();
-        navigate("/frontend/home") //this line is to change the page
+        navigate("/website/home") //this line is to change the page
         //window.localStorage.setItem("tokenJWT", "token")
     }
 
@@ -75,7 +75,7 @@ const ConnexionPage = () => {
     const messageErrorRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
     if(window.localStorage.getItem("isConnected") === "true"){
-        window.location.href = "/frontend/home"
+        window.location.href = "/website/home"
         return null
     }
 
