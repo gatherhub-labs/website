@@ -35,6 +35,9 @@ const TopNav = () => {
                     <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12a9.96 9.96 0 0 0 1.331 4.988c.172.299.202.663.057.976l-.854 1.837A1.5 1.5 0 0 0 3.862 22H12c5.523 0 10-4.477 10-10S17.523 2 12 2zM8 13.3a1.3 1.3 0 1 0 0-2.6 1.3 1.3 0 1 0 0 2.6zm8 0a1.3 1.3 0 1 0 0-2.6 1.3 1.3 0 1 0 0 2.6zm-4 0a1.3 1.3 0 1 0 0-2.6 1.3 1.3 0 1 0 0 2.6z" fill="#00F"/>
                 </svg>
             </a>
+            <a className="flex place-self-center hover:scale-110 duration-150" href="/website/drive/">
+                connect to drive
+            </a>
             {
                 window.localStorage.getItem("isConnected") === "true" ?
                 
