@@ -75,7 +75,7 @@ const ConnexionPage = () => {
     const messageErrorRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
     if(window.localStorage.getItem("isConnected") === "true"){
-        window.location.href = "/website/home"
+        navigate("/website/home")
         return null
     }
 
