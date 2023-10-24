@@ -1,3 +1,4 @@
+//import { useEffect } from 'react'
 import Layout from './Layout'
 import Message from './Message'
 //import { useAppContext } from '../AppContext'
@@ -26,6 +27,11 @@ const Home = () => {
     } */
 
     //const [conversation, setConversations] = useState<Conversation>({topic: "topic", messages: []});
+
+/*     useEffect(() => {
+        fetch(new Request("http://localhost:8080/api/request_users_list",{method:"GET"})).then((res)=>res.json()).then((data)=>console.log(data))
+    }, []) */
+
 
     return(
         <Layout>

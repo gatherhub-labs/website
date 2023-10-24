@@ -11,7 +11,7 @@ const Message = ({ message, user }: MessageProps) => {
     const [sender, setSender] = useState(false);
 
     useEffect(() => {
-        console.log(window.localStorage.getItem("login"))
+        //console.log(window.localStorage.getItem("login"))
         if(window.localStorage.getItem("login") === user){
             setSender(true)
         } else {

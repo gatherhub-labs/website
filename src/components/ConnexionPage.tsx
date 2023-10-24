@@ -1,10 +1,11 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TopNav from './TopNav';
 
 const ConnexionPage = () => {
 
     const navigate = useNavigate();
+    const [isFirstConnection, setIsFirstConnection] = useState(false);
 
     const handleEyeClick = () => {
         if (inputPasswordRef.current?.getAttribute("type") === "password") {
@@ -42,7 +43,7 @@ const ConnexionPage = () => {
 
 
 
-    const handleConnexion = (e: React.FormEvent<HTMLFormElement>) => { 
+    const handleConnexion = async (e: React.FormEvent<HTMLFormElement>) => { 
         e.preventDefault();
         if(inputUsernameRef.current.value === ""){
             messageErrorRef.current.innerHTML = "Please enter a username"
@@ -60,14 +61,62 @@ const ConnexionPage = () => {
             , 3000)
             return
         }
-        window.localStorage.setItem("login", inputUsernameRef.current.value); // To save the login in the local storage
-        window.localStorage.setItem("isConnected", "true");
-        //initiateWebsocket();
-        navigate("/website/home") //this line is to change the page
-        //window.localStorage.setItem("tokenJWT", "token")
+        if(isFirstConnection){
+            var mesEntetes = new Headers();
+            mesEntetes.append('Content-Type', 'application/json');
+            var monInit:RequestInit = { method: 'POST',
+                           headers: mesEntetes,
+                           body: JSON.stringify({username: inputUsernameRef.current.value, password: inputPasswordRef.current.value}),
+                           mode: 'cors',
+                           cache: 'default' };
+            
+            var maRequete = new Request('http://localhost:8080/api/first_connection',monInit);
+            fetch(maRequete).then((res) => res.json()).then((data) => {
+                console.log(data);
+                if (data === "Username déjà utilisé. Veuillez en choisir un autre") {
+                  messageErrorRef.current.innerHTML = "Username déjà utilisé. Veuillez en choisir un autre";
+                  setTimeout(() => {
+                    messageErrorRef.current.innerHTML = "";
+                  }, 3000);
+                  return;
+                } else {
+                    window.localStorage.setItem("login", inputUsernameRef.current.value); // To save the login in the local storage
+                    window.localStorage.setItem("isConnected", "true");
+                    navigate("/website/home");
+                }
+              });
+        } else {
+            var mesEntetes = new Headers();
+            mesEntetes.append('Content-Type', 'application/json');
+            var monInit:RequestInit = { method: 'POST',
+                           headers: mesEntetes,
+                           body: JSON.stringify({username: inputUsernameRef.current.value, password: inputPasswordRef.current.value}),
+                           mode: 'cors',
+                           cache: 'default' };
+            
+            var maRequete = new Request('http://localhost:8080/api/login',monInit);
+            fetch(maRequete).then((res) => res.json()).then((data) => {
+                if (data === "No such login exists") {
+                  messageErrorRef.current.innerHTML = "No such login exists";
+                  setTimeout(() => {
+                    messageErrorRef.current.innerHTML = "";
+                  }, 3000);
+                  return;
+                } else if (data === "Wrong password") {
+                    messageErrorRef.current.innerHTML = "Wrong password";
+                    setTimeout(() => {
+                        messageErrorRef.current.innerHTML = "";
+                    }, 3000);
+                    return;
+                } 
+                else {
+                    window.localStorage.setItem("login", inputUsernameRef.current.value); // To save the login in the local storage
+                    window.localStorage.setItem("isConnected", "true");
+                    navigate("/website/home");
+                }
+              });
+        }
     }
-
-
 
     const inputPasswordRef = useRef() as React.MutableRefObject<HTMLInputElement>;
     const inputUsernameRef = useRef() as React.MutableRefObject<HTMLInputElement>;
@@ -75,14 +124,18 @@ const ConnexionPage = () => {
     const messageErrorRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
     if(window.localStorage.getItem("isConnected") === "true"){
-        navigate("/website/home")
+        window.location.href = "/website/home"
         return null
     }
 
     return (
         <div className="flex h-screen w-full place-content-center">
             <TopNav />
-            <form onSubmit={handleConnexion} className='flex flex-col w-fit h-fit self-center rounded-sm gap-6 p-6 bg-teal-500'>
+            <form onSubmit={handleConnexion} className='flex flex-col w-fit h-fit self-center rounded-sm gap-6 p-6 bg-blue-500'>
+                <div className="flex gap-2">
+                    <div>C'est ma première connexion</div>
+                    <input onChange={()=>setIsFirstConnection(!isFirstConnection)} checked={isFirstConnection} type="checkbox" className="appearance-none cursor-pointer flex-wrap p-0 h-6 w-12 rounded-full border-1 transition-colors duration-150 bg-slate-200 dark:bg-slate-400 checked:bg-teal-400 checked:dark:bg-teal-400 before:flex before:bg-white before:h-full before:w-6 before:rounded-full before:relative before:transition-transform checked:before:translate-x-6 before:ease-in-out before:duration-150"/>
+                </div>
                 <input ref={inputUsernameRef} type="text" placeholder="Username" className="flex w-full self-center px-1 bg-slate-100 rounded-sm border-none outline-none" />
                 <div className="flex self-center px-1 bg-slate-100 rounded-sm border-none outline-none">
                     <input ref={inputPasswordRef} type="password" placeholder="Password" className="flex px-1 bg-transparent border-none outline-none" />
