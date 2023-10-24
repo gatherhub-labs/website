@@ -1,30 +1,22 @@
-import { useEffect, useState } from 'react'
-
-
 interface MessageProps {
-    message: string;
-    user: string;
+    sender: string;
+    content: string;
+    timestamp: number;
+    topic: string;
 }
 
-const Message = ({ message, user }: MessageProps) => {
+const Message = ({ sender, content, timestamp, topic }: MessageProps) => {
 
-    const [sender, setSender] = useState(false);
-
-    useEffect(() => {
-        //console.log(window.localStorage.getItem("login"))
-        if(window.localStorage.getItem("login") === user){
-            setSender(true)
-        } else {
-            setSender(false)
-        }
-    }
-    , [])
 
     return(
         <div className="flex flex-col w-full">
-            <div className="flex flex-col max-w-[70%] w-fit h-fit gap-4 p-4 rounded-lg" style={{backgroundColor: sender ? "#0FF" : "#F0F", placeSelf: sender ? "flex-end" : "flex-start"}}>
-                <div className="flex text-lg font-bold">{user}</div>
-                <div className="flex text-sm">{message}</div> 
+            <div className="flex flex-col max-w-[70%] w-fit h-fit gap-4 p-4 rounded-lg" style={{backgroundColor: (window.localStorage.getItem("login") === sender) ? "#0FF" : "#F0F", placeSelf: (window.localStorage.getItem("login") === sender) ? "flex-end" : "flex-start"}}>
+                <div className="flex text-lg font-bold">{sender}</div>
+                <div className="flex text-md">{content}</div> 
+                <div className="flex text-blue-500 text-md gap-2">
+                    <div className="flex-grow self-center">{topic}</div>
+                    <div className="flex text-xs self-center">{new Date(timestamp).toLocaleString()}</div>
+                </div>
             </div>
         </div>
     )

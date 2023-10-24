@@ -8,8 +8,6 @@ const LeftNav = () => {
     const [usersList, setUsersList] = useState<string[]>([])
     const [topicList, setTopicList] = useState<string[]>([])
 
-    const [selectedTopic, setSelectedTopic] = useState<string>("")
-
     const [topicToBeCreated, setTopicToBeCreated] = useState<string>("")
     const [messageErrorCreateTopic, setMessageErrorCreateTopic] = useState<string>("")
 
@@ -30,7 +28,6 @@ const LeftNav = () => {
         fetch(new Request("http://localhost:8080/api/request_topic_list",{method:"GET"})).then((res)=>res.json()).then((data)=>{
             console.log(data)
             setTopicList(data)
-            setSelectedTopic(data[0])
         });
     },[]);     
 
@@ -98,9 +95,9 @@ const LeftNav = () => {
             <div className="flex flex-col gap-4">
                 <p>USERS:</p>
                 {   
-                    usersList.map((user) => {
+                    usersList.map((user, index) => {
                         return(
-                            <div className="flex p-2 bg-blue-300 rounded-sm cursor-pointer place-content-center hover:bg-slate-400">{user}</div>
+                            <div key={index} className="flex p-2 bg-blue-300 rounded-sm cursor-pointer place-content-center hover:bg-slate-400">{user}</div>
                         )
                     })
                 }
@@ -108,9 +105,9 @@ const LeftNav = () => {
             <div className="flex flex-col gap-4">
                 <p>TOPICS:</p>
                 {
-                    topicList.map((topic) => {
+                    topicList.map((topic, index) => {
                         return(
-                            <div onClick={()=>setSelectedTopic(topic)} className="flex p-2 bg-purple-300 rounded-sm cursor-pointer place-content-center hover:bg-slate-400">{topic}</div>
+                            <div key={index} className="flex p-2 bg-purple-300 rounded-sm cursor-pointer place-content-center hover:bg-slate-400">{topic}</div>
                         )
                     })
                 }
