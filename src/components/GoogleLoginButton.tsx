@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-//import google api
 import { gapi } from 'gapi-script';
 
 const GoogleLoginButton = () => {

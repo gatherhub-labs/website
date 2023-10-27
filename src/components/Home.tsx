@@ -1,14 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import Layout from './Layout'
 import Message from './Message'
-//import { useAppContext } from '../AppContext'
-//import { useState } from 'react'
+
 
 const Home = () => {
-
-    //const { isConnected, setIsConnected } = useAppContext();
-    //window.localStorage.getItem("isConnected") === "true" ? setIsConnected(true) : setIsConnected(false)
-
 
     const [messagesList, setMessagesList] = useState<Record<string, unknown>[]>();
     const [messageToBeSent, setMessageToBeSent] = useState<string>("")
@@ -64,12 +59,10 @@ const Home = () => {
             let message = JSON.parse(JSON.stringify({sender: window.localStorage.getItem("login"), content:messageToBeSent, timestamp:Date.now(), topic:window.localStorage.getItem("currentTopic")}));
             let newMessageList = [...(messagesList ?? []), message];
             setMessagesList(newMessageList);
-            console.log("coucou!");
           }
         );
     }
 
-    //On key press enter, send message if focused on input
     document.addEventListener('keydown', (event) => {
         if(event.key === 'Enter' && inputMessage.current != null && document.activeElement === inputMessage.current) {
             sendMessage()
