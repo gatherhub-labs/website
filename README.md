@@ -2,6 +2,26 @@
 
 This project is made with React + TypeScript + Vite + TailwindCSS.
 
+## The structure of the project
+/
+├── AppContext.tsx
+├── App.tsx
+├── assets
+│   └── react.svg
+├── components
+│   ├── ConnexionPage.tsx
+│   ├── GoogleLoginButton.tsx
+│   ├── Home.tsx
+│   ├── Layout.tsx
+│   ├── LeftNav.tsx
+│   ├── Message.tsx
+│   └── TopNav.tsx
+├── index.css
+├── main.tsx
+├── stompClient.js
+└── vite-env.d.ts
+
+
 ## How to run this project locally
 
 ### 0. Prerequisites
